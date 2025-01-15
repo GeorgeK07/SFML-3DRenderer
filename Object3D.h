@@ -23,8 +23,14 @@ class Object3D {
     double pitch_angle;
     double yaw_angle;
     double roll_angle;
+    // Prev 3d x and y pos
+    double* prev_x_3d_pos;
+    double* prev_y_3d_pos;
     // Stores all final vertices to show onscreen
     sf::VertexArray vertices;
+    // Text object that shows all coords and stuff
+    sf::Text* text_obj;
+    sf::Font* font;
   public:
     // Create Object3D object
     Object3D();
@@ -36,8 +42,6 @@ class Object3D {
       sf::Keyboard::Key y_angle_dec, sf::Keyboard::Key y_angle_inc,
       sf::Keyboard::Key z_angle_dec, sf::Keyboard::Key z_angle_inc,
       sf::Keyboard::Key focal_dec, sf::Keyboard::Key focal_inc);
-    // Set rotation of each 3d point
-    void setRotationOfPoints();
     // Calc pitch (x rotation)
     void calcPitch(int i);
     // Calc yaw (y rotation)
@@ -52,6 +56,8 @@ class Object3D {
     double calc2DYPos(int i);
     // Render Object3D
     void renderObject3D(sf::RenderWindow* win);
+    // Render text object
+    void renderTextObject(sf::RenderWindow* win);
     // Delete all char_obj related objects
     ~Object3D();
 };

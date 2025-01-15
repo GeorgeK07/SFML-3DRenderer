@@ -39,13 +39,11 @@ void Game::gameLoop() {
       }
     }
     // Calc 2d pos of 3d points
-    obj_3d->getInputs(sf::Keyboard::Left, sf::Keyboard::Right, sf::Keyboard::Up,
-        sf::Keyboard::Down, sf::Keyboard::LShift, sf::Keyboard::Space,
+    obj_3d->getInputs(sf::Keyboard::Left, sf::Keyboard::Right, sf::Keyboard::LShift,
+        sf::Keyboard::Space, sf::Keyboard::Down, sf::Keyboard::Up,
         sf::Keyboard::Q, sf::Keyboard::W, sf::Keyboard::A,
         sf::Keyboard::S, sf::Keyboard::Z, sf::Keyboard::X,
         sf::Keyboard::E, sf::Keyboard::R);
-    obj_3d->setRotationOfPoints();
-    obj_3d->set2DPosOfPoints();
     // Render Game
     renderGame();
   }
@@ -57,6 +55,8 @@ void Game::renderGame() {
   win->clear();
   // Draw obj_3d
   obj_3d->renderObject3D(win);
+  // Draw text in obj_3d
+  obj_3d->renderTextObject(win);
   // Display all objects drawn to screen
   win->display();
 }
