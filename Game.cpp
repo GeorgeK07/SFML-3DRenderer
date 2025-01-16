@@ -43,6 +43,8 @@ void Game::gameLoop() {
       sf::Keyboard::Q, sf::Keyboard::W, sf::Keyboard::A,
       sf::Keyboard::S, sf::Keyboard::Z, sf::Keyboard::X,
       sf::Keyboard::E, sf::Keyboard::R);
+    // Set the 2d position of each 3d point
+    obj_3d->set2DPosOfPoints();
     // Render Game
     renderGame();
   }

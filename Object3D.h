@@ -23,9 +23,6 @@ class Object3D {
     double pitch_angle;
     double yaw_angle;
     double roll_angle;
-    // Prev 3d x and y pos
-    double* prev_x_3d_pos;
-    double* prev_y_3d_pos;
     // Stores temp x,y,z coords of all vertices when rotated
     double* x_rot_coords;
     double* y_rot_coords;
