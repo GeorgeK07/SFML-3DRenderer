@@ -20,7 +20,6 @@ Game::Game() {
   // Set framelimit to 60fps (Cannot be on at same time as vsync)
   // win->setFramerateLimit(60);
   win->setVerticalSyncEnabled(true); // Uncomment for vsync
-
   // Create an obj_3d
   obj_3d = new Object3D();
 }
@@ -40,10 +39,10 @@ void Game::gameLoop() {
     }
     // Calc 2d pos of 3d points
     obj_3d->getInputs(sf::Keyboard::Left, sf::Keyboard::Right, sf::Keyboard::LShift,
-        sf::Keyboard::Space, sf::Keyboard::Down, sf::Keyboard::Up,
-        sf::Keyboard::Q, sf::Keyboard::W, sf::Keyboard::A,
-        sf::Keyboard::S, sf::Keyboard::Z, sf::Keyboard::X,
-        sf::Keyboard::E, sf::Keyboard::R);
+      sf::Keyboard::Space, sf::Keyboard::Down, sf::Keyboard::Up,
+      sf::Keyboard::Q, sf::Keyboard::W, sf::Keyboard::A,
+      sf::Keyboard::S, sf::Keyboard::Z, sf::Keyboard::X,
+      sf::Keyboard::E, sf::Keyboard::R);
     // Render Game
     renderGame();
   }

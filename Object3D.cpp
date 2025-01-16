@@ -25,10 +25,20 @@ Object3D::Object3D() {
   // Set prev 3d coords arrays to empty
   prev_x_3d_pos = new double[8]{0};
   prev_y_3d_pos = new double[8]{0};
+  // Set coords for each temp rot point
+  x_rot_coords = new double[8]{0};
+  y_rot_coords = new double[8]{0};
+  z_rot_coords = new double[8]{0};
   // Create a vertex array
   vertices = sf::VertexArray(sf::Points, 8);
   //  Calc 2d pos of 3d points for first time, also cache them so x and y camera
   // movements don't need to recompute y and x 2d coords
+  // Reset rot coords
+  for (int i = 0; i < 8; i++) {
+    x_rot_coords[i] = x_coords[i];
+    y_rot_coords[i] = y_coords[i];
+    z_rot_coords[i] = z_coords[i];
+  }
   set2DPosOfPoints();
   // Load font
   font = new sf::Font;
@@ -97,6 +107,7 @@ void Object3D::getInputs(sf::Keyboard::Key x_dec, sf::Keyboard::Key x_inc,
   if (sf::Keyboard::isKeyPressed(focal_inc)) {
     focal_length += 0.1;
   }
+  
   // Set 2d xpos of each 3d point if camera has changed
   if (sf::Keyboard::isKeyPressed(x_dec) || sf::Keyboard::isKeyPressed(x_inc)) {
     // For loop that uses functions to calc 2d position for each 3d point
@@ -115,21 +126,25 @@ void Object3D::getInputs(sf::Keyboard::Key x_dec, sf::Keyboard::Key x_inc,
   if (sf::Keyboard::isKeyPressed(z_dec) || sf::Keyboard::isKeyPressed(z_inc)) {
     set2DPosOfPoints();
   }
+
   // Set rotation of each 3d point if angle has changed
   if (sf::Keyboard::isKeyPressed(z_angle_dec) || sf::Keyboard::isKeyPressed(z_angle_inc)) {
     for (int i = 0; i < 8; i++) {
       calcRoll(i);
+      calcPitch(i);
     }
     set2DPosOfPoints();
   }
   if (sf::Keyboard::isKeyPressed(x_angle_dec) || sf::Keyboard::isKeyPressed(x_angle_inc)) {
     for (int i = 0; i < 8; i++) {
       calcPitch(i);
+      calcYaw(i);
     }
     set2DPosOfPoints();
   }
   if (sf::Keyboard::isKeyPressed(y_angle_dec) || sf::Keyboard::isKeyPressed(y_angle_inc)) {
     for (int i = 0; i < 8; i++) {
+      calcRoll(i);
       calcYaw(i);
     }
     set2DPosOfPoints();
@@ -138,20 +153,20 @@ void Object3D::getInputs(sf::Keyboard::Key x_dec, sf::Keyboard::Key x_inc,
 
 // Calc pitch (x rotation)
 void Object3D::calcPitch(int i) {
-  y_coords[i] = cos(pitch_angle) * (y_coords[i] - camera[1]) + sin(pitch_angle) * (camera[2] - z_coords[i]) + camera[1];
-  z_coords[i] = sin(pitch_angle) * (y_coords[i] - camera[1]) + cos(pitch_angle) * (z_coords[i] - camera[2]) + camera[2];
+  y_rot_coords[i] = cos(pitch_angle) * (y_coords[i] - camera[1]) + sin(pitch_angle) * (camera[2] - z_coords[i]) + camera[1];
+  z_rot_coords[i] = sin(pitch_angle) * (y_coords[i] - camera[1]) + cos(pitch_angle) * (z_coords[i] - camera[2]) + camera[2];
 }
 
 // Calc yaw (y rotation)
 void Object3D::calcYaw(int i) {
-  x_coords[i] = cos(yaw_angle) * (x_coords[i] - camera[0]) + sin(yaw_angle) * (camera[2] - z_coords[i]) + camera[0];
-  z_coords[i] = sin(yaw_angle) * (x_coords[i] - camera[0]) + cos(yaw_angle) * (z_coords[i] - camera[2]) + camera[2];
+  x_rot_coords[i] = cos(yaw_angle) * (x_coords[i] - camera[0]) + sin(yaw_angle) * (camera[2] - z_coords[i]) + camera[0];
+  z_rot_coords[i] = sin(yaw_angle) * (x_coords[i] - camera[0]) + cos(yaw_angle) * (z_coords[i] - camera[2]) + camera[2];
 }
 
 // Calc roll (z rotation)
 void Object3D::calcRoll(int i) {
-  x_coords[i] = x_coords[i] * cos(roll_angle) - z_coords[i] * sin(roll_angle);
-  z_coords[i] = x_coords[i] * sin(roll_angle) - z_coords[i] * cos(roll_angle);
+  x_rot_coords[i] = x_coords[i] * cos(roll_angle) - z_coords[i] * sin(roll_angle);
+  z_rot_coords[i] = x_coords[i] * sin(roll_angle) - z_coords[i] * cos(roll_angle);
 }
 
 // Set the 2d position of each 3d point
@@ -166,14 +181,14 @@ void Object3D::set2DPosOfPoints() {
 
 // Calc 2d xpos
 double Object3D::calc2DXPos(int i) {
-  std::cout << "2D X of point index " << i << ": " << focal_length * (x_coords[i] - camera[0]) / (z_coords[i] - camera[2]) << std::endl;
-  return focal_length * (x_coords[i] - camera[0]) / (z_coords[i] - camera[2]);
+  // std::cout << "2D X of point index " << i << ": " << focal_length * (x_coords[i] - camera[0]) / (z_coords[i] - camera[2]) << std::endl;
+  return focal_length * (x_rot_coords[i] - camera[0]) / (z_rot_coords[i] - camera[2]);
 }
 
 // Calc 2d ypos
 double Object3D::calc2DYPos(int i) {
-  std::cout << "2D Y of point index " << i << ": " << focal_length * (y_coords[i]  - camera[1]) / (z_coords[i] - camera[2]) << std::endl;
-  return focal_length * (y_coords[i]  - camera[1]) / (z_coords[i] - camera[2]);
+  // std::cout << "2D Y of point index " << i << ": " << focal_length * (y_coords[i]  - camera[1]) / (z_coords[i] - camera[2]) << std::endl;
+  return focal_length * (y_rot_coords[i]  - camera[1]) / (z_rot_coords[i] - camera[2]);
 }
 
 // Render Object3D
@@ -195,4 +210,15 @@ void Object3D::renderTextObject(sf::RenderWindow* win) {
 }
 
 // Delete all Object3D related objects
-Object3D::~Object3D() {}
+Object3D::~Object3D() {
+  // Delete all dynamic arrays
+  delete x_coords;
+  delete y_coords;
+  delete z_coords;
+  delete camera;
+  delete prev_x_3d_pos;
+  delete prev_y_3d_pos;
+  delete x_rot_coords;
+  delete y_rot_coords;
+  delete z_rot_coords;
+}
