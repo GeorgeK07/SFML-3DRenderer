@@ -11,7 +11,7 @@ Game class function definitions
 // Create Game object with certain screen settings
 Game::Game() {
   // Create 640x480 screen and scale 320x240 to it
-  win = new sf::RenderWindow(sf::VideoMode({640, 480}), "SFML-SineScroller");
+  win = new sf::RenderWindow(sf::VideoMode({640, 480}), "SFML-3DRenderer");
   sf::View view(sf::Vector2f(160, 120), sf::Vector2f(320, 240));
   win->setView(view);
   win->setPosition(
