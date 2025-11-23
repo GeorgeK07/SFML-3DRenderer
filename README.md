@@ -1,22 +1,22 @@
 # SFML-3DRenderer
 A very basic 3D renderer based on this video (https://www.youtube.com/watch?v=FLlbYUdca9s), rendering the vertices of a cube made in SFML with C++, adhering to Object Oriented Programming design principles.
 
-https://github.com/user-attachments/assets/29c197e4-b463-4027-8904-4e877c3c9ad2
+https://github.com/user-attachments/assets/ee3e259b-ab76-492a-a8a8-6ddd6b1f4e7e
 
 ## Controls
-Left - Camera X Decrease
-Right - Camera X Increase
-LShift - Camera Y Decrease
-Space - Camera Y Decrease
-Down - Camera Z Decrease
-Up - Camera Z Decrease
-Q - Pitch Angle Decrease
-W - Pitch Angle Increase
-A - Yaw Angle Decrease
-S - Yaw Angle Increase
-Z - Roll Angle Decrease
-X - Roll Angle Increase
-E - Focal Length Decrease
+Left - Camera X Decrease\
+Right - Camera X Increase\
+LShift - Camera Y Decrease\
+Space - Camera Y Decrease\
+Down - Camera Z Decrease\
+Up - Camera Z Decrease\
+Q - Pitch Angle Decrease\
+W - Pitch Angle Increase\
+A - Yaw Angle Decrease\
+S - Yaw Angle Increase\
+Z - Roll Angle Decrease\
+X - Roll Angle Increase\
+E - Focal Length Decrease\
 R - Focal Length Increase
 
 ## Build
