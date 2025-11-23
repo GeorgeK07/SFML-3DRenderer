@@ -28,6 +28,9 @@ This program was built and tested with:
 It will most likely work with newer or older versions and other operating systems, however, there may be some breaking changes that cause it not to build or run.
 
 ## Credits
-PublicPixel font (https://ggbot.itch.io/public-pixel-font) by GGBotNet
-This Font Software is licensed under the Creative Commons Zero v1.0 Universal.
-This license is available with a FAQ at: https://creativecommons.org/publicdomain/zero/1.0/
+Thanks to The Unqualified Tutor (https://www.youtube.com/@TheUnqualifiedTutor) for making this video\
+(https://www.youtube.com/watch?v=FLlbYUdca9s)
+
+PublicPixel font (https://ggbot.itch.io/public-pixel-font) by GGBotNet\
+This Font Software is licensed under the Creative Commons Zero v1.0 Universal.\
+This license is available with a FAQ at: https://creativecommons.org/publicdomain/zero/1.0/\
