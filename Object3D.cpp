@@ -27,7 +27,7 @@ Object3D::Object3D() {
   y_rot_coords = new double[8]{0};
   z_rot_coords = new double[8]{0};
   // Create a vertex array
-  vertices = sf::VertexArray(sf::Points, 8);
+  vertices = sf::VertexArray(sf::PrimitiveType::Points, 8);
   //  Calc 2d pos of 3d points for first time, also cache them so x and y camera
   // movements don't need to recompute y and x 2d coords
   // Reset rot coords
@@ -39,18 +39,17 @@ Object3D::Object3D() {
   set2DPosOfPoints();
   // Load font
   font = new sf::Font;
-  font->loadFromFile("PublicPixel.ttf");
-  font->setSmooth(false);
-  if (!font->loadFromFile("PublicPixel.ttf")) {
+  bool isExisting = font->openFromFile("PublicPixel.ttf");
+  if (!isExisting) {
     std::cout << "Font failed to load.\n";
     exit(1);
   }
+  font->setSmooth(false);
   // Create new text object and set properties
-  text_obj = new sf::Text;
-  text_obj->setFont(*font);
+  text_obj = new sf::Text(*font);
   text_obj->setCharacterSize(8);
   text_obj->setFillColor(sf::Color::White);
-  text_obj->setPosition(4, 4);
+  text_obj->setPosition({4, 4});
 }
 
 // Get inputs and do stuff with them
